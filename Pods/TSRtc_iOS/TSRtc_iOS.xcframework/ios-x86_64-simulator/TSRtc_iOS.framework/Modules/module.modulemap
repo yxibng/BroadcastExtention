@@ -1,0 +1,11 @@
+framework module TSRtc_iOS {
+    header "TSConstants.h"
+    header "TSEnumerates.h"
+    header "TSMediaIO.h"
+    header "TSObjects.h"
+    header "TSRtcChannel.h"
+    header "TSRtcEngineKit.h"
+    header "TSRtcVideoStream.h"
+
+  export *
+}

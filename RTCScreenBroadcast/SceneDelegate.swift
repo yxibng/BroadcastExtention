@@ -7,6 +7,40 @@
 
 import UIKit
 
+
+struct Log {
+    static var logFilePathInContainer: String? {
+        guard let group = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.tech.tosee.mobile") else {
+            return nil
+        }
+        guard var path = (group as NSURL).path else {
+            return nil
+        }
+        path = (path as NSString).appendingPathComponent("xx.pcm")
+        return path
+    }
+    
+    static func copyToMain() {
+    
+        guard let path = logFilePathInContainer else {
+            return
+        }
+        
+        do {
+            let mainPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!  as NSString).appendingPathComponent("xx.pcm")
+            try? FileManager.default.removeItem(atPath: mainPath)
+            try FileManager.default.copyItem(atPath: path, toPath: mainPath)
+            print("move success")
+        } catch {
+            print("move failed, \(error)")
+        }
+        
+        
+    }
+    
+    
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -29,6 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        Log.copyToMain()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -46,7 +81,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 
