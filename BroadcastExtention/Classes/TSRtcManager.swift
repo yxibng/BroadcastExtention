@@ -44,15 +44,16 @@ extension CGSize {
 }
 
 
-class TSVideoSource: NSObject, TSVideoSourceProtocol, TSVideoEncoderDelegate {
-    func videoEncoder(_ videoEncoder: TSVideoEncoder, didEncodeH264 h264Data: UnsafeMutableRawPointer, dataLength length: Int32, isKeyFrame: Bool, timestamp: TimeInterval, bitrate: Int32) {
+class TSVideoSource: NSObject, TSVideoSourceProtocol, TSHardwareEncoderDelegate {
+    func encoder(_ encoder: TSHardwareEncoder, gotEncoderData data: UnsafeMutablePointer<UInt8>, length: Int32, iskey: Bool, timestamp: Int64) {
         if let consumer = consumer {
-            consumer.consumePacket?(h264Data, length: Int(length), bufferType: .H264, isKeyframe: isKeyFrame, timestamp: UInt32(timestamp))
+            consumer.consumePacket?(data, length: Int(length), bufferType: .H264, isKeyframe: iskey, timestamp: UInt32(timestamp))
         }
     }
+    
     var lowStreamConsumer: TSVideoFrameConsumer?
     var consumer: TSVideoFrameConsumer?
-    let encoder = TSVideoEncoder.init()
+    let encoder = TSHardwareEncoder.init()
     
     var lastTimestamp: Double = 0
     
@@ -114,11 +115,10 @@ class TSVideoSource: NSObject, TSVideoSourceProtocol, TSVideoEncoderDelegate {
             guard let newPixelBuffer = newPixelBuffer else {
                 return
             }
-            
-            self.encoder.encodeNv12PixelBuffer(newPixelBuffer, timestamp: TimeInterval(timestamp), forceKeyFrame: false)
+            self.encoder.encode(newPixelBuffer, timestamp: Int64(timestamp))
             return;
         }
-        self.encoder.encodeNv12PixelBuffer(pixelBuffer, timestamp: TimeInterval(timestamp), forceKeyFrame: false)
+        self.encoder.encode(pixelBuffer, timestamp: Int64(timestamp))
     }
 }
 
