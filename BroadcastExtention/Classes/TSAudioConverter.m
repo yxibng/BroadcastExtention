@@ -11,7 +11,9 @@
 
 #define kMaxBufferSize 32767
 
-uint8_t tempBuffer[kMaxBufferSize];
+uint8_t bufferForOutput[kMaxBufferSize];
+uint8_t bufferForInput[kMaxBufferSize];
+
 
 
 static void writePCM(uint8_t * pcm, int length) {
@@ -116,14 +118,13 @@ static void writePCM(uint8_t * pcm, int length) {
     UInt32 outputPacketOffset = 0;
     //循环转换
     OSStatus convertResult = noErr;
+    AudioBufferList outAudioBufferList;
     while (convertResult == noErr) {
-        memset(tempBuffer, 0, kMaxBufferSize);
-        AudioBufferList outAudioBufferList;
+        memset(bufferForOutput, 0, kMaxBufferSize);
         outAudioBufferList.mNumberBuffers = 1;
         outAudioBufferList.mBuffers[0].mNumberChannels = 1;
         outAudioBufferList.mBuffers[0].mDataByteSize = kMaxBufferSize;
-        outAudioBufferList.mBuffers[0].mData = tempBuffer;
-        
+        outAudioBufferList.mBuffers[0].mData = bufferForOutput;
         convertResult = AudioConverterFillComplexBuffer(_converterRef,
                                                         inInputDataProc,
                                                         (__bridge void * _Nullable)(self),
@@ -150,13 +151,25 @@ static void writePCM(uint8_t * pcm, int length) {
 OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *ioData, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData)
 {
     TSAudioConverter *self = (__bridge TSAudioConverter *)inUserData;
-    int requireSize = ioData->mBuffers[0].mDataByteSize;
+    int requireSize = *ioNumberDataPackets * self->_dstFormat.mBytesPerPacket;
+    if (!ioData->mBuffers[0].mData) {
+        ioData->mBuffers[0].mData = bufferForInput;
+        ioData->mBuffers[0].mNumberChannels = 1;
+        memset(bufferForInput, 0, kMaxBufferSize);
+        NSLog(@"buffer = 0");
+    }
+    
+    NSLog(@"requireSize = %d", requireSize);
     if ([self dequeueLength:requireSize dstBuffer:ioData->mBuffers[0].mData]) {
+        ioData->mBuffers[0].mDataByteSize = requireSize;
         return noErr;
     } else {
         *ioNumberDataPackets = 0;
         return -1;
     }
+    
+    
+
 }
 
 @end
