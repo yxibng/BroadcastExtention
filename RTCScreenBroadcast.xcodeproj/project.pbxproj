@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3813DC79767DE25F5826CB5A /* Pods_BroadcastExtention.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E7BE276B17F95ECD23EF88 /* Pods_BroadcastExtention.framework */; };
-		862F567C293B7D3A00733A80 /* TSAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F567B293B7D3900733A80 /* TSAudioConverter.m */; };
-		862F5681293C369800733A80 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 862F567F293C369800733A80 /* TPCircularBuffer.c */; };
+		8607A90C294A203D00E5117A /* libspeexdsp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8607A90B294A203D00E5117A /* libspeexdsp.a */; };
+		8607A90F294AB90000E5117A /* TSSpeexConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607A90E294AB90000E5117A /* TSSpeexConverter.m */; };
 		867F5C0529398ECC00FBD41A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867F5C0429398ECC00FBD41A /* AppDelegate.swift */; };
-		867F5C0729398ECC00FBD41A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867F5C0629398ECC00FBD41A /* SceneDelegate.swift */; };
 		867F5C0929398ECC00FBD41A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867F5C0829398ECC00FBD41A /* ViewController.swift */; };
 		867F5C0C29398ECC00FBD41A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 867F5C0A29398ECC00FBD41A /* Main.storyboard */; };
 		867F5C0E29398ECD00FBD41A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 867F5C0D29398ECD00FBD41A /* Assets.xcassets */; };
@@ -68,15 +67,19 @@
 		670474CE104551820EFE4903 /* Pods-BroadcastExtention.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BroadcastExtention.debug.xcconfig"; path = "Target Support Files/Pods-BroadcastExtention/Pods-BroadcastExtention.debug.xcconfig"; sourceTree = "<group>"; };
 		70458848F7FD06D9D22CAEE3 /* Pods-BroadcastExtentionSetupUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BroadcastExtentionSetupUI.debug.xcconfig"; path = "Target Support Files/Pods-BroadcastExtentionSetupUI/Pods-BroadcastExtentionSetupUI.debug.xcconfig"; sourceTree = "<group>"; };
 		859E8EBF224E8C4498942EAE /* Pods-BroadcastExtentionSetupUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BroadcastExtentionSetupUI.release.xcconfig"; path = "Target Support Files/Pods-BroadcastExtentionSetupUI/Pods-BroadcastExtentionSetupUI.release.xcconfig"; sourceTree = "<group>"; };
-		862F567A293B7D3900733A80 /* TSAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSAudioConverter.h; sourceTree = "<group>"; };
-		862F567B293B7D3900733A80 /* TSAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSAudioConverter.m; sourceTree = "<group>"; };
+		8607A904294A203D00E5117A /* speex_echo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_echo.h; sourceTree = "<group>"; };
+		8607A905294A203D00E5117A /* speexdsp_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speexdsp_types.h; sourceTree = "<group>"; };
+		8607A906294A203D00E5117A /* speex_resampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_resampler.h; sourceTree = "<group>"; };
+		8607A907294A203D00E5117A /* speex_preprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_preprocess.h; sourceTree = "<group>"; };
+		8607A908294A203D00E5117A /* speexdsp_config_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speexdsp_config_types.h; sourceTree = "<group>"; };
+		8607A909294A203D00E5117A /* speex_jitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speex_jitter.h; sourceTree = "<group>"; };
+		8607A90B294A203D00E5117A /* libspeexdsp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libspeexdsp.a; sourceTree = "<group>"; };
+		8607A90D294AB90000E5117A /* TSSpeexConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSSpeexConverter.h; sourceTree = "<group>"; };
+		8607A90E294AB90000E5117A /* TSSpeexConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TSSpeexConverter.m; sourceTree = "<group>"; };
 		862F567D293BA9FA00733A80 /* BroadcastExtention.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BroadcastExtention.entitlements; sourceTree = "<group>"; };
 		862F567E293BAA5000733A80 /* RTCScreenBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RTCScreenBroadcast.entitlements; sourceTree = "<group>"; };
-		862F567F293C369800733A80 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
-		862F5680293C369800733A80 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		867F5C0129398ECC00FBD41A /* RTCScreenBroadcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RTCScreenBroadcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		867F5C0429398ECC00FBD41A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		867F5C0629398ECC00FBD41A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		867F5C0829398ECC00FBD41A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		867F5C0B29398ECC00FBD41A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		867F5C0D29398ECD00FBD41A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -252,6 +255,7 @@
 				867F5D7E2939955700FBD41A /* libavfilter.a in Frameworks */,
 				867F5D8D2939978800FBD41A /* libz.tbd in Frameworks */,
 				867F5D7D2939955700FBD41A /* libavutil.a in Frameworks */,
+				8607A90C294A203D00E5117A /* libspeexdsp.a in Frameworks */,
 				867F5D8B293996F300FBD41A /* VideoToolbox.framework in Frameworks */,
 				867F5D7F2939955700FBD41A /* libavcodec.a in Frameworks */,
 				867F5D802939955700FBD41A /* libavformat.a in Frameworks */,
@@ -279,6 +283,44 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8607A901294A203D00E5117A /* libspeexdsp */ = {
+			isa = PBXGroup;
+			children = (
+				8607A902294A203D00E5117A /* include */,
+				8607A90A294A203D00E5117A /* lib */,
+			);
+			path = libspeexdsp;
+			sourceTree = "<group>";
+		};
+		8607A902294A203D00E5117A /* include */ = {
+			isa = PBXGroup;
+			children = (
+				8607A903294A203D00E5117A /* speex */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		8607A903294A203D00E5117A /* speex */ = {
+			isa = PBXGroup;
+			children = (
+				8607A904294A203D00E5117A /* speex_echo.h */,
+				8607A905294A203D00E5117A /* speexdsp_types.h */,
+				8607A906294A203D00E5117A /* speex_resampler.h */,
+				8607A907294A203D00E5117A /* speex_preprocess.h */,
+				8607A908294A203D00E5117A /* speexdsp_config_types.h */,
+				8607A909294A203D00E5117A /* speex_jitter.h */,
+			);
+			path = speex;
+			sourceTree = "<group>";
+		};
+		8607A90A294A203D00E5117A /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				8607A90B294A203D00E5117A /* libspeexdsp.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		867F5BF829398ECC00FBD41A = {
 			isa = PBXGroup;
 			children = (
@@ -304,7 +346,6 @@
 			children = (
 				862F567E293BAA5000733A80 /* RTCScreenBroadcast.entitlements */,
 				867F5C0429398ECC00FBD41A /* AppDelegate.swift */,
-				867F5C0629398ECC00FBD41A /* SceneDelegate.swift */,
 				867F5C0829398ECC00FBD41A /* ViewController.swift */,
 				867F5C0A29398ECC00FBD41A /* Main.storyboard */,
 				867F5C0D29398ECD00FBD41A /* Assets.xcassets */,
@@ -347,10 +388,8 @@
 				867F5CE62939955700FBD41A /* codec */,
 				867F5D762939955700FBD41A /* TSAudioHandler.h */,
 				867F5D772939955700FBD41A /* TSAudioHandler.m */,
-				862F567A293B7D3900733A80 /* TSAudioConverter.h */,
-				862F567B293B7D3900733A80 /* TSAudioConverter.m */,
-				862F567F293C369800733A80 /* TPCircularBuffer.c */,
-				862F5680293C369800733A80 /* TPCircularBuffer.h */,
+				8607A90D294AB90000E5117A /* TSSpeexConverter.h */,
+				8607A90E294AB90000E5117A /* TSSpeexConverter.m */,
 				867F5D792939955700FBD41A /* TSManager.swift */,
 				867F5CE42939955700FBD41A /* TSRtcManager.swift */,
 			);
@@ -360,6 +399,7 @@
 		867F5CE62939955700FBD41A /* codec */ = {
 			isa = PBXGroup;
 			children = (
+				8607A901294A203D00E5117A /* libspeexdsp */,
 				867F5CE82939955700FBD41A /* ffmpeg */,
 				867F5D732939955700FBD41A /* TSBitrateHelper.cpp */,
 				867F5D712939955700FBD41A /* TSBitrateHelper.hpp */,
@@ -740,7 +780,6 @@
 			files = (
 				867F5C0929398ECC00FBD41A /* ViewController.swift in Sources */,
 				867F5C0529398ECC00FBD41A /* AppDelegate.swift in Sources */,
-				867F5C0729398ECC00FBD41A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,11 +790,10 @@
 				867F5D842939955700FBD41A /* TSBitrateHelper.cpp in Sources */,
 				867F5D852939955700FBD41A /* TSAudioHandler.m in Sources */,
 				867F5D832939955700FBD41A /* TSHardwareEncoder.mm in Sources */,
+				8607A90F294AB90000E5117A /* TSSpeexConverter.m in Sources */,
 				867F5D862939955700FBD41A /* TSManager.swift in Sources */,
 				867F5D7A2939955700FBD41A /* TSRtcManager.swift in Sources */,
 				867F5C2229398EE600FBD41A /* SampleHandler.swift in Sources */,
-				862F5681293C369800733A80 /* TPCircularBuffer.c in Sources */,
-				862F567C293B7D3A00733A80 /* TSAudioConverter.m in Sources */,
 				867F5D7C2939955700FBD41A /* TSVideoEncoder.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,7 +960,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -954,7 +992,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -977,11 +1015,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C6T93NC4DJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/include",
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/libspeexdsp/include",
+				);
 				INFOPLIST_FILE = BroadcastExtention/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtention;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -990,6 +1031,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/lib",
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/libspeexdsp/lib",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.tosee.mobile.rtc.extention;
@@ -1011,11 +1053,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C6T93NC4DJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/include",
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/libspeexdsp/include",
+				);
 				INFOPLIST_FILE = BroadcastExtention/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtention;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1024,6 +1069,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/ffmpeg/lib",
+					"$(PROJECT_DIR)/BroadcastExtention/Classes/codec/libspeexdsp/lib",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.tosee.mobile.rtc.extention;

@@ -1,8 +1,8 @@
 //
-//  TSAudioConverter.h
+//  TSSpeexConverter.h
 //  BroadcastExtention
 //
-//  Created by xiaobing yao on 2022/12/2.
+//  Created by xiaobing yao on 2022/12/15.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,8 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TSAudioConverter : NSObject
-
+@interface TSSpeexConverter : NSObject
 - (instancetype)initWithSrcFormat:(AudioStreamBasicDescription)srcFormat
                          dstFormat:(AudioStreamBasicDescription)dstForamt;
 
@@ -23,19 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
  
  调用成功返回YES
  outputLength 保存转换后的数据大小
- outputSampleCount 保存转换后的采样个数
  */
 - (BOOL)convertMonoPCMWithSrc:(uint8_t *)srcData
-                    srcLength:(int32_t)srcLength
-               srcSampleCount:(int32_t)srcSampleCount
-             outputBufferSize:(int32_t)outputBufferSize
+                    srcLength:(uint32_t)srcLength
+             outputBufferSize:(uint32_t)outputBufferSize
                   outputBuffer:(uint8_t *)outputBuffer
-                  outputLength:(int32_t *)outputLength
-            outputSampleCount:(int32_t *)outputSampleCount;
-
-
-
-
+                 outputLength:(uint32_t *)outputLength;
 @end
 
 NS_ASSUME_NONNULL_END

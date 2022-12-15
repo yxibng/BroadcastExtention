@@ -6,17 +6,20 @@
 //
 
 #import "TSAudioHandler.h"
-#import "TSAudioConverter.h"
+#import "TSSpeexConverter.h"
 
-const int bufferSamples = 16000;
+const int bufferSamples = 48000;
 size_t dataPointerSize = bufferSamples;
-
 int16_t dataPointer[bufferSamples];
 
 int16_t appAudioData[bufferSamples];
 int16_t micAudioData[bufferSamples];
 
 uint64_t micAudioSize = 0;
+
+const int bufferCapacityInByte = bufferSamples * sizeof(int16_t);
+
+
 
 static void writePCM(uint8_t * pcm, int length) {
     static FILE* m_pOutFile = NULL;
@@ -36,8 +39,9 @@ static void writePCM(uint8_t * pcm, int length) {
     AudioStreamBasicDescription _dstDescription;
 }
 
-@property (nonatomic, strong) TSAudioConverter *appAudioConverter;
-@property (nonatomic, strong) TSAudioConverter *micAudioConverter;
+@property (nonatomic, strong) TSSpeexConverter *resamplerApp;
+@property (nonatomic, strong) TSSpeexConverter *resamplerMic;
+
 
 @property (nonatomic, weak) TSAudioHandler *audioHandler;
 
@@ -82,7 +86,7 @@ static void writePCM(uint8_t * pcm, int length) {
     size_t totalSamples = totalBytes / (description->mBitsPerChannel / 8);
     UInt32 channels = description->mChannelsPerFrame;
     
-    memset(dataPointer, 0, sizeof(int16_t) * bufferSamples);
+    memset(dataPointer, 0, bufferCapacityInByte);
     err = CMBlockBufferCopyDataBytes(audioBuffer,
                                      0,
                                      totalBytes,
@@ -94,12 +98,6 @@ static void writePCM(uint8_t * pcm, int length) {
     BOOL isFloat = description->mFormatFlags & kAudioFormatFlagIsFloat;
     BOOL isBigEndian = description->mFormatFlags & kAudioFormatFlagIsBigEndian;
     BOOL isInterleaved = !(description->mFormatFlags & kAudioFormatFlagIsNonInterleaved);
-    
-//    NSLog(@"isFloat = %d, isBigEndian = %d, isInterleaved = %d\
-//              totalFrames = %d, totalSamples = %d, channels = %d",
-//          isFloat, isBigEndian, isInterleaved,
-//          totalFrames, totalSamples, channels);
-    
     
     // big endian to little endian
     size_t bytesPerSample = description->mBitsPerChannel / 8;
@@ -153,23 +151,21 @@ static void writePCM(uint8_t * pcm, int length) {
             4）将appAudioData 的数据发送出去
          */
 
-        if (!_appAudioConverter) {
+        
+        if (!_resamplerApp) {
             AudioStreamBasicDescription srcFormat = *([[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:description->mSampleRate channels:1 interleaved:NO].streamDescription);
-            _appAudioConverter = [[TSAudioConverter alloc] initWithSrcFormat: srcFormat dstFormat:_dstDescription];
+            _resamplerApp = [[TSSpeexConverter alloc] initWithSrcFormat: srcFormat dstFormat:_dstDescription];
         }
         
-        int32_t capacity = bufferSamples * sizeof(int16_t);
+        uint32_t capacity = bufferCapacityInByte;
         uint8_t *dstData = (uint8_t *)appAudioData;
-        int32_t outputLength = 0;
-        int32_t outputSampleCount = 0;
+        uint32_t outputLength = 0;
         
-        BOOL ret = [self.appAudioConverter convertMonoPCMWithSrc:srcData
-                                                       srcLength:(int32_t)srcLength
-                                                  srcSampleCount:(int32_t)srcLength/sizeof(int16_t)
-                                                outputBufferSize:capacity
-                                                    outputBuffer:dstData
-                                                    outputLength:&outputLength
-                                               outputSampleCount:&outputSampleCount];
+        BOOL ret = [self.resamplerApp convertMonoPCMWithSrc:srcData
+                                                    srcLength:(uint32_t)srcLength
+                                             outputBufferSize:capacity
+                                                 outputBuffer:dstData
+                                                 outputLength:&outputLength];
         
         assert(ret);
         if (!ret) {
@@ -192,31 +188,26 @@ static void writePCM(uint8_t * pcm, int length) {
         pcm[0] = appAudioData;
         int lineSize[1] = {outputLength};
         [self.audioHandler.consumer consumeAudioPcmData:pcm lineSize:lineSize frameType:TSAudioPcmS16 channel:1 sampleRate:_dstDescription.mSampleRate timestamp:timestamp];
-        
     } else {
         /*
          针对麦克风数据
          1. 经过float->int16, bigEndian->littleEndian, 之后分离出单声道
          2. 重采样到目标采样率，存入micAudioBuffer， 更新 micAudioSize
          */
-        if (!_micAudioConverter) {
+        if (!_resamplerMic) {
             AudioStreamBasicDescription srcFormat = *([[AVAudioFormat alloc] initWithCommonFormat:AVAudioPCMFormatInt16 sampleRate:description->mSampleRate channels:1 interleaved:NO].streamDescription);
-            _micAudioConverter = [[TSAudioConverter alloc] initWithSrcFormat: srcFormat dstFormat:_dstDescription];
+            _resamplerMic = [[TSSpeexConverter alloc] initWithSrcFormat: srcFormat dstFormat:_dstDescription];
         }
 
-        uint8_t tempBuffer[1024] = {0};
-        int32_t capacity = 1024;
+        uint8_t tempBuffer[bufferCapacityInByte] = {0};
+        uint32_t capacity = bufferCapacityInByte;
         uint8_t *dstData = tempBuffer;
-        int32_t outputLength = 0;
-        int32_t outputSampleCount = 0;
-        
-        BOOL ret = [self.micAudioConverter convertMonoPCMWithSrc:srcData
-                                                       srcLength:(int32_t)srcLength
-                                                  srcSampleCount:(int32_t)srcLength/sizeof(int16_t)
-                                                outputBufferSize:capacity
-                                                    outputBuffer:dstData
-                                                    outputLength:&outputLength
-                                               outputSampleCount:&outputSampleCount];
+        uint32_t outputLength = 0;
+        BOOL ret = [self.resamplerMic convertMonoPCMWithSrc:srcData
+                                                  srcLength:(uint32_t)srcLength
+                                           outputBufferSize:capacity
+                                               outputBuffer:dstData
+                                               outputLength:&outputLength];
         assert(ret);
         if (!ret) {
             return;

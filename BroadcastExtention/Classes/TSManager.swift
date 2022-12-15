@@ -44,6 +44,7 @@ extension TSManager : TSRtcManagerDelegate {
         print("🥹🥹 \(#function)")
     }
     func rtcFailed(code: Int, message: String) {
+        print("rtcFailed \(code), message \(message)")
         self.stopWithError(message: "RTC JoinChannelFailed")
     }
 }

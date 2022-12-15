@@ -12,6 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let task = URLSession.shared.dataTask(with: URLRequest.init(url: .init(string: "https://www.baidu.com")!)) { _, _, _ in
+            
+        }
+        task.resume()
         // Do any additional setup after loading the view.
     }
 
